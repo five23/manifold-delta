@@ -149,14 +149,14 @@
 			max : 0.5
 		}).value.bind(osc4Node, "gain");
 
-		var osc1modIndex = new gui.Knob({
+		/*var osc1modIndex = new gui.Knob({
 			x : 960,
 			y : 80,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc1Node, "modIndex");
+		}).value.bind(osc1Node, "modIndex");*/
 
 		var osc2modIndex = new gui.Knob({
 			x : 960,
@@ -176,14 +176,14 @@
 			max : 1.0
 		}).value.bind(osc3Node, "modIndex");
 
-		/*var osc4modIndex = new gui.Knob({
+		var osc4modIndex = new gui.Knob({
 			x : 960,
 			y : 335,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc4Node, "modIndex");*/
+		}).value.bind(osc4Node, "modIndex");
 	}
 
 	init();
