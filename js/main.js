@@ -1,7 +1,16 @@
+/**
+* Manifold
+* 
+* @version Delta
+* @author David Scott Kirby (david@ecomatics.net)
+* 
+* {@link http://github.com/five23}
+*/
+
 (function(window) {
 
 	var context, manifold, osc1Node, osc2Node, osc3Node, osc4Node, mainOutput, compressor, gui;
-	
+
 	function init() {
 
 		if ( typeof AudioContext === "function") {
@@ -14,29 +23,28 @@
 
 		manifold = new Manifold(context);
 
-		osc1Node = new manifold.Oscillator();
-		osc2Node = new manifold.Oscillator();
-		osc3Node = new manifold.Oscillator();
-		osc4Node = new manifold.Oscillator();
+		osc1Node = manifold.createOscillator();
+		osc2Node = manifold.createOscillator();
+		osc3Node = manifold.createOscillator();
+		osc4Node = manifold.createOscillator();
 
-		osc1Node.pmNode.connect(osc2Node.pmInput);
-		osc2Node.pmNode.connect(osc3Node.pmInput);
-		osc3Node.pmNode.connect(osc4Node.pmInput);
-		osc4Node.pmNode.connect(osc1Node.pmInput);
-
+		osc1Node.modOutput.connect(osc2Node.modInput);
+		osc2Node.modOutput.connect(osc3Node.modInput);
+		osc3Node.modOutput.connect(osc4Node.modInput);
+		osc4Node.modOutput.connect(osc1Node.modInput);
+		
 		compressor = context.createDynamicsCompressor();
 
 		osc1Node.connect(compressor);
 		osc2Node.connect(compressor);
 		osc3Node.connect(compressor);
 		osc4Node.connect(compressor);
-
+		
 		compressor.connect(context.destination);
 	}
 
-
 	function initGui() {
-	
+
 		gui = new xgui({
 			width : 1280,
 			height : 720
@@ -70,7 +78,7 @@
 			y : 80,
 			value : 220,
 			min : 0,
-			max : 8000,
+			max : 4000,
 			width : 750,
 			height : 65
 		}).value.bind(osc1Node, "frequency");
@@ -80,7 +88,7 @@
 			y : 165,
 			value : 220,
 			min : 0,
-			max : 8000,
+			max : 4000,
 			width : 750,
 			height : 65
 		}).value.bind(osc2Node, "frequency");
@@ -90,7 +98,7 @@
 			y : 250,
 			value : 220,
 			min : 0,
-			max : 8000,
+			max : 4000,
 			width : 750,
 			height : 65
 		}).value.bind(osc3Node, "frequency");
@@ -100,7 +108,7 @@
 			y : 335,
 			value : 220,
 			min : 0,
-			max : 8000,
+			max : 4000,
 			width : 750,
 			height : 65
 		}).value.bind(osc4Node, "frequency");
@@ -109,7 +117,7 @@
 			x : 60,
 			y : 80,
 			radius : 30,
-			value : 0.25,
+			value : 0.0,
 			min : 0,
 			max : 0.5
 		}).value.bind(osc1Node, "gain");
@@ -118,7 +126,7 @@
 			x : 60,
 			y : 165,
 			radius : 30,
-			value : 0.25,
+			value : 0.0,
 			min : 0,
 			max : 0.5
 		}).value.bind(osc2Node, "gain");
@@ -127,7 +135,7 @@
 			x : 60,
 			y : 250,
 			radius : 30,
-			value : 0.25,
+			value : 0.0,
 			min : 0,
 			max : 0.5
 		}).value.bind(osc3Node, "gain");
@@ -136,46 +144,46 @@
 			x : 60,
 			y : 335,
 			radius : 30,
-			value : 0.25,
+			value : 0.0,
 			min : 0,
 			max : 0.5
 		}).value.bind(osc4Node, "gain");
 
-		var osc1PmIndex = new gui.Knob({
+		var osc1modIndex = new gui.Knob({
 			x : 960,
 			y : 80,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc1Node, "pmIndex");
+		}).value.bind(osc1Node, "modIndex");
 
-		var osc2PmIndex = new gui.Knob({
+		var osc2modIndex = new gui.Knob({
 			x : 960,
 			y : 165,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc2Node, "pmIndex");
+		}).value.bind(osc2Node, "modIndex");
 
-		var osc3PmIndex = new gui.Knob({
+		var osc3modIndex = new gui.Knob({
 			x : 960,
 			y : 250,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc3Node, "pmIndex");
+		}).value.bind(osc3Node, "modIndex");
 
-		var osc4PmIndex = new gui.Knob({
+		var osc4modIndex = new gui.Knob({
 			x : 960,
 			y : 335,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc4Node, "pmIndex");
+		}).value.bind(osc4Node, "modIndex");
 	}
 
 	init();
