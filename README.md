@@ -17,7 +17,6 @@ Demo : http://five23.github.com/manifold-delta/
     osc1Node.modOutput.connect(osc2Node.modInput);
     osc2Node.modOutput.connect(osc3Node.modInput);
     osc3Node.modOutput.connect(osc4Node.modInput);
-    osc4Node.modOutput.connect(osc1Node.modInput);
 
 The demo uses the awesome XGUI interface library.
 
