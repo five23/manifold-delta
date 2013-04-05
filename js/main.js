@@ -78,7 +78,7 @@
 			y : 80,
 			value : 220,
 			min : 0,
-			max : 4000,
+			max : 1200,
 			width : 750,
 			height : 65
 		}).value.bind(osc1Node, "frequency");
@@ -88,7 +88,7 @@
 			y : 165,
 			value : 220,
 			min : 0,
-			max : 4000,
+			max : 1200,
 			width : 750,
 			height : 65
 		}).value.bind(osc2Node, "frequency");
@@ -98,7 +98,7 @@
 			y : 250,
 			value : 220,
 			min : 0,
-			max : 4000,
+			max : 1200,
 			width : 750,
 			height : 65
 		}).value.bind(osc3Node, "frequency");
@@ -108,11 +108,11 @@
 			y : 335,
 			value : 220,
 			min : 0,
-			max : 4000,
+			max : 1200,
 			width : 750,
 			height : 65
 		}).value.bind(osc4Node, "frequency");
-
+		
 		var osc1Gain = new gui.Knob({
 			x : 60,
 			y : 80,
@@ -148,16 +148,7 @@
 			min : 0,
 			max : 0.5
 		}).value.bind(osc4Node, "gain");
-
-		/*var osc1modIndex = new gui.Knob({
-			x : 960,
-			y : 80,
-			radius : 30,
-			value : 0.0,
-			min : 0,
-			max : 1.0
-		}).value.bind(osc1Node, "modIndex");*/
-
+		
 		var osc2modIndex = new gui.Knob({
 			x : 960,
 			y : 165,
