@@ -31,7 +31,7 @@
 		osc1Node.modOutput.connect(osc2Node.modInput);
 		osc2Node.modOutput.connect(osc3Node.modInput);
 		osc3Node.modOutput.connect(osc4Node.modInput);
-		osc4Node.modOutput.connect(osc1Node.modInput);
+		//osc4Node.modOutput.connect(osc1Node.modInput);
 		
 		compressor = context.createDynamicsCompressor();
 
@@ -176,14 +176,14 @@
 			max : 1.0
 		}).value.bind(osc3Node, "modIndex");
 
-		var osc4modIndex = new gui.Knob({
+		/*var osc4modIndex = new gui.Knob({
 			x : 960,
 			y : 335,
 			radius : 30,
 			value : 0.0,
 			min : 0,
 			max : 1.0
-		}).value.bind(osc4Node, "modIndex");
+		}).value.bind(osc4Node, "modIndex");*/
 	}
 
 	init();
