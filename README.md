@@ -2,11 +2,12 @@
 
 Phase modulation using the Web Audio API.
 
-Demo : http://five23.github.com/manifold-delta/
-
+While frequency modulation (ie, FM synthesis) is straight-forward using the Web Audio API, 
+I found phase modulation to be far less intuitive, so this project is my attempt at creating a simple
+modular environment so I can tinker with phase distortion synthesis, feedback, and all that good stuff.
 
     context = new webkitAudioContext();
-
+    
     manifold = new Manifold(context);
 
     osc1Node = manifold.createOscillator();
@@ -14,9 +15,12 @@ Demo : http://five23.github.com/manifold-delta/
     osc3Node = manifold.createOscillator();
     osc4Node = manifold.createOscillator();
     
-    osc1Node.modOutput.connect(osc2Node.modInput);
-    osc2Node.modOutput.connect(osc3Node.modInput);
-    osc3Node.modOutput.connect(osc4Node.modInput);
+    osc1Node.modOutput.connect(osc2Node.modInput); // osc1=>osc2
+    osc2Node.modOutput.connect(osc3Node.modInput); // osc2=>osc3
+    osc3Node.modOutput.connect(osc4Node.modInput); // osc3=>osc4
+
+
+Demo : http://five23.github.com/manifold-delta/
 
 The demo uses the awesome XGUI interface library.
 
