@@ -1,9 +1,9 @@
 /**
 * Manifold
-* 
+*
 * @version Delta
 * @author David Scott Kirby (david@ecomatics.net)
-* 
+*
 * {@link http://github.com/five23}
 */
 
@@ -21,9 +21,9 @@ var π = Math.PI,
 	},
 	version = "Delta",
 	Super = Object.create(null, {
-		connect : { 
-			value : function(target) { 
-				this.output.connect(target); 
+		connect : {
+			value : function(target) {
+				this.output.connect(target);
 			}
 		},
 		disconnect : {
@@ -43,22 +43,22 @@ var π = Math.PI,
 			}
 		}
 	});
-	
-	
+
+
 	/**
  	* Create Oscillator node
- 	* 
+ 	*
  	* @param {Object} properties
  	* @returns {Object}
  	*/
 	Manifold.prototype.createOscillator = function(properties) {
 		return new userInstance.Oscillator(properties);
 	};
-	
-	
+
+
 	/**
  	* Oscillator
- 	* 
+ 	*
  	* @param {Object} properties
  	* @param {Number} properties.gain
  	* @param {Number} properties.frequency
@@ -66,16 +66,16 @@ var π = Math.PI,
  	* @param {Number} properties.modIndex
  	*/
 	Manifold.prototype.Oscillator = function(properties) {
-		
+
 		if (!properties) {
 			properties = this.getDefaults();
 		}
-		
+
 		this.jsNode = userContext.createScriptProcessor(this.bufferSize, 1, 1);
-		this.output = userContext.createGainNode();
-		this.modOutput = userContext.createGainNode();
-		this.modInput  = userContext.createGainNode();
-		this.modIndex = properties.modIndex || this.defaults.modIndex.value;	
+		this.output = userContext.createGain();
+		this.modOutput = userContext.createGain();
+		this.modInput  = userContext.createGain();
+		this.modIndex = properties.modIndex || this.defaults.modIndex.value;
 		this.phase = properties.phase || this.defaults.phase.value;
 		this.gain  = properties.gain || this.defaults.gain.value;
 		this.frequency = properties.frequency || this.defaults.frequency.value;
@@ -84,14 +84,14 @@ var π = Math.PI,
 
 
 	Manifold.prototype.Oscillator.prototype = Object.create(Super, {
-		name : { 
-			value : "Oscillator" 
+		name : {
+			value : "Oscillator"
 		},
-		bufferSize : { 
-			value : 1024 
+		bufferSize : {
+			value : 1024
 		},
-		sampleRate : { 
-			value : 44100 
+		sampleRate : {
+			value : 44100
 		},
 		defaults : {
 			value : {
@@ -156,13 +156,13 @@ var π = Math.PI,
 		activate : {
 			value : function(doActivate) {
 				if (doActivate) {
-					this.modInput.connect(this.jsNode);					
+					this.modInput.connect(this.jsNode);
 					this.jsNode.connect(this.output);
 					this.jsNode.connect(this.modOutput);
 					this.jsNode.onaudioprocess = this.returnCompute(this);
 				} else {
 					this.modInput.disconnect();
-					this.jsNode.disconnect();					
+					this.jsNode.disconnect();
 					this.jsNode.onaudioprocess = null;
 				}
 			}
@@ -189,7 +189,7 @@ var π = Math.PI,
 		}
 	});
 
-	
+
 	/**
  	* Clamp a value to an interval
  	*
@@ -215,7 +215,7 @@ var π = Math.PI,
 		return clamp((value - min) / (max - min), -1.0, 1.0);
 	};
 
-	
+
 	/**
  	* Re-maps a value from one range to another
  	*
@@ -235,7 +235,7 @@ var π = Math.PI,
 			var _value = ((value - min) / (max - min) * (vmax - vmin) + vmin);
 			if (clamp) {
 				if (vmax < vmin) {
-					if 		(_value < vmax) { _value = vmax; }				
+					if 		(_value < vmax) { _value = vmax; }
 					else if (_value > vmin) { _value = vmin; }
 				}
 				else {
@@ -246,11 +246,11 @@ var π = Math.PI,
 			return _value;
 		}
 	};
-			
+
     Manifold.toString = Manifold.prototype.toString = function () {
         return "Manifold " + version;
     };
-    
+
 	if (typeof define === "function") {
 		define("Manifold", [], function() {
 			return Manifold;
