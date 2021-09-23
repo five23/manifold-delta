@@ -20,8 +20,10 @@ modular environment so I can tinker with phase distortion synthesis, feedback, a
     osc3Node.modOutput.connect(osc4Node.modInput); // osc3=>osc4
 
 
-Demo : http://five23.github.com/manifold-delta/
+Demo : https://five23.github.io/manifold-delta/
 
 The demo uses the awesome XGUI interface library.
 
 Node/Object structure inspired and informed by Tuna.js.
+
+*** TODO: need to update this to work w/ modern browsers ***
